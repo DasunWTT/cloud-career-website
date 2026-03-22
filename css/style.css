@@ -1,0 +1,53 @@
+body {
+  font-family: Arial;
+  margin: 0;
+  background: #f4f4f4;
+}
+
+header {
+  background: #222;
+  color: white;
+  padding: 15px;
+}
+
+nav a {
+  color: white;
+  margin: 10px;
+  text-decoration: none;
+}
+
+.container {
+  padding: 20px;
+}
+
+.progress-bar {
+  width: 100%;
+  background: #ddd;
+  height: 25px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.progress-bar div {
+  height: 100%;
+  width: 0%;
+  background: green;
+  color: white;
+  text-align: center;
+  line-height: 25px;
+}
+
+button {
+  padding: 8px;
+  margin-top: 10px;
+}
+
+li {
+  cursor: pointer;
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+li:hover {
+  background: #eee;
+}
