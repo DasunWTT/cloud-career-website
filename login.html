@@ -1,20 +1,114 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
-    <title>Login</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Cloud Path</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      /* Centering the login card on the screen */
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #1e293b; /* Sidebar color from style.css */
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      .login-container {
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+      }
+
+      .login-container h1 {
+        color: white;
+        margin-bottom: 20px;
+      }
+
+      .login-card {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .login-card h2 {
+        margin-top: 0;
+        color: #1e293b;
+        font-size: 1.5rem;
+      }
+
+      .login-card input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box; /* Ensures padding doesn't affect width */
+        font-size: 1rem;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 10px;
+      }
+
+      .btn {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1rem;
+        transition: 0.3s;
+      }
+
+      .btn-signup {
+        background: #334155;
+        color: white;
+      }
+
+      .btn-login {
+        background: #22c55e; /* Progress bar green from style.css */
+        color: white;
+      }
+
+      .btn-login:hover {
+        background: #16a34a;
+      }
+      .btn-signup:hover {
+        background: #475569;
+      }
+
+      #msg {
+        margin-top: 15px;
+        font-size: 0.9rem;
+        min-height: 1.2rem;
+      }
+    </style>
   </head>
   <body>
-    <h2>Login / Sign Up</h2>
+    <div class="login-container">
+      <h1>☁️ Cloud Path</h1>
 
-    <input type="email" id="email" placeholder="Email" />
-    <input type="password" id="password" placeholder="Password" />
+      <div class="login-card">
+        <h2>Sign In</h2>
 
-    <br /><br />
+        <input type="email" id="email" placeholder="Email Address" required />
+        <input type="password" id="password" placeholder="Password" required />
 
-    <button onclick="signUp()">Sign Up</button>
-    <button onclick="login()">Login</button>
+        <div class="button-group">
+          <button class="btn btn-signup" onclick="signUp()">Sign Up</button>
+          <button class="btn btn-login" onclick="login()">Login</button>
+        </div>
 
-    <p id="msg"></p>
+        <p id="msg"></p>
+      </div>
+    </div>
 
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>

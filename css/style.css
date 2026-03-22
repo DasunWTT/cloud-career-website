@@ -1,53 +1,85 @@
 body {
-  font-family: Arial;
   margin: 0;
-  background: #f4f4f4;
+  font-family: Arial;
+  background: #f4f6f9;
 }
 
-header {
-  background: #222;
+/* Layout */
+.dashboard {
+  display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: #1e293b;
   color: white;
-  padding: 15px;
-}
-
-nav a {
-  color: white;
-  margin: 10px;
-  text-decoration: none;
-}
-
-.container {
+  height: 100vh;
   padding: 20px;
 }
 
+.sidebar h2 {
+  margin-bottom: 20px;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.sidebar a:hover {
+  background: #334155;
+}
+
+.sidebar button {
+  margin-top: 20px;
+  padding: 10px;
+  width: 100%;
+  background: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* Main */
+.main {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Cards */
+.card {
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* Progress Bar */
 .progress-bar {
   width: 100%;
+  height: 20px;
   background: #ddd;
-  height: 25px;
   border-radius: 10px;
-  margin-bottom: 10px;
 }
 
 .progress-bar div {
   height: 100%;
+  background: #22c55e;
   width: 0%;
-  background: green;
-  color: white;
   text-align: center;
-  line-height: 25px;
-}
-
-button {
-  padding: 8px;
-  margin-top: 10px;
-}
-
-li {
-  cursor: pointer;
-  padding: 5px;
-  border-bottom: 1px solid #ccc;
-}
-
-li:hover {
-  background: #eee;
+  color: white;
+  border-radius: 10px;
 }
