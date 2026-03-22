@@ -30,6 +30,25 @@
       <button onclick="addTask('networking')">Add</button>
     </section>
 
+    <!-- 🔥 Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyAbKIeSaNcrelBDmC76bfFRLsF5BtigDP0",
+        authDomain: "cloud-career-website.firebaseapp.com",
+        projectId: "cloud-career-website",
+        storageBucket: "cloud-career-website.firebasestorage.app",
+        messagingSenderId: "727936967848",
+        appId: "1:727936967848:web:1504c3de35cb1309e24e9d",
+        measurementId: "G-PYF31QL10G",
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+    </script>
+
     <script src="js/app.js"></script>
   </body>
 </html>
