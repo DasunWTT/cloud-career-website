@@ -1,11 +1,33 @@
 // ----------------------
+// CHECK LOGIN
+// ----------------------
+auth.onAuthStateChanged((user) => {
+  if (!user) {
+    window.location.href = "login.html";
+  } else {
+    initApp(user);
+  }
+});
+
+// ----------------------
+// INIT APP AFTER LOGIN
+// ----------------------
+function initApp(user) {
+  const topics = ["networking", "aws", "linux", "others"];
+
+  topics.forEach((topic) => loadTasks(user, topic));
+  loadProgress(user);
+}
+
+// ----------------------
 // LOAD TASKS
 // ----------------------
-async function loadTasks(topic) {
+async function loadTasks(user, topic) {
   const list = document.getElementById(topic + "Tasks");
   if (!list) return;
 
-  const doc = await db.collection("tasks").doc(topic).get();
+  const docRef = db.collection("tasks").doc(user.uid + "_" + topic);
+  const doc = await docRef.get();
 
   list.innerHTML = "";
 
@@ -23,7 +45,7 @@ async function loadTasks(topic) {
       li.style.color = "gray";
     }
 
-    li.onclick = () => toggleTask(topic, index);
+    li.onclick = () => toggleTask(user, topic, index);
 
     list.appendChild(li);
   });
@@ -33,12 +55,14 @@ async function loadTasks(topic) {
 // ADD TASK
 // ----------------------
 async function addTask(topic) {
-  const input = document.getElementById(topic + "TaskInput");
+  const user = auth.currentUser;
+  if (!user) return;
 
+  const input = document.getElementById(topic + "TaskInput");
   if (!input.value) return;
 
-  const ref = db.collection("tasks").doc(topic);
-  const doc = await ref.get();
+  const docRef = db.collection("tasks").doc(user.uid + "_" + topic);
+  const doc = await docRef.get();
 
   let tasks = doc.exists ? doc.data().items : [];
 
@@ -47,36 +71,39 @@ async function addTask(topic) {
     done: false,
   });
 
-  await ref.set({ items: tasks });
+  await docRef.set({ items: tasks });
 
   input.value = "";
 
-  loadTasks(topic);
-  loadProgress();
+  loadTasks(user, topic);
+  loadProgress(user);
 }
 
 // ----------------------
 // TOGGLE TASK
 // ----------------------
-async function toggleTask(topic, index) {
-  const ref = db.collection("tasks").doc(topic);
-  const doc = await ref.get();
+async function toggleTask(user, topic, index) {
+  const docRef = db.collection("tasks").doc(user.uid + "_" + topic);
+  const doc = await docRef.get();
 
   let tasks = doc.data().items;
 
   tasks[index].done = !tasks[index].done;
 
-  await ref.set({ items: tasks });
+  await docRef.set({ items: tasks });
 
-  loadTasks(topic);
-  loadProgress();
+  loadTasks(user, topic);
+  loadProgress(user);
 }
 
 // ----------------------
 // CALCULATE PROGRESS
 // ----------------------
-async function calculateProgress(topic) {
-  const doc = await db.collection("tasks").doc(topic).get();
+async function calculateProgress(user, topic) {
+  const doc = await db
+    .collection("tasks")
+    .doc(user.uid + "_" + topic)
+    .get();
 
   if (!doc.exists) return 0;
 
@@ -94,13 +121,13 @@ async function calculateProgress(topic) {
 // ----------------------
 // LOAD PROGRESS
 // ----------------------
-async function loadProgress() {
+async function loadProgress(user) {
   const topics = ["networking", "aws", "linux", "others"];
 
   let total = 0;
 
   for (let topic of topics) {
-    const progress = await calculateProgress(topic);
+    const progress = await calculateProgress(user, topic);
     total += progress;
 
     const el = document.getElementById(topic + "Progress");
@@ -122,7 +149,10 @@ async function loadProgress() {
 }
 
 // ----------------------
-// INIT
+// LOGOUT
 // ----------------------
-["networking", "aws", "linux", "others"].forEach(loadTasks);
-loadProgress();
+function logout() {
+  auth.signOut().then(() => {
+    window.location.href = "login.html";
+  });
+}

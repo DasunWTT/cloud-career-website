@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Login</title>
+  </head>
+  <body>
+    <h2>Login / Sign Up</h2>
+
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
+
+    <br /><br />
+
+    <button onclick="signUp()">Sign Up</button>
+    <button onclick="login()">Login</button>
+
+    <p id="msg"></p>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyAbKIeSaNcrelBDmC76bfFRLsF5BtigDP0",
+        authDomain: "cloud-career-website.firebaseapp.com",
+        projectId: "cloud-career-website",
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+
+      // SIGN UP
+      function signUp() {
+        let email = document.getElementById("email").value;
+        let pass = document.getElementById("password").value;
+
+        auth
+          .createUserWithEmailAndPassword(email, pass)
+          .then(() => {
+            document.getElementById("msg").innerText = "Account created!";
+          })
+          .catch((err) => {
+            document.getElementById("msg").innerText = err.message;
+          });
+      }
+
+      // LOGIN
+      function login() {
+        let email = document.getElementById("email").value;
+        let pass = document.getElementById("password").value;
+
+        auth
+          .signInWithEmailAndPassword(email, pass)
+          .then(() => {
+            window.location.href = "index.html";
+          })
+          .catch((err) => {
+            document.getElementById("msg").innerText = err.message;
+          });
+      }
+    </script>
+  </body>
+</html>
